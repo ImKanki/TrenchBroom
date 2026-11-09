@@ -20,8 +20,12 @@
 #include "Observer.h"
 #include "TestEnvironment.h"
 #include "fs/TestEnvironment.h"
+#include "gl/Material.h"
 #include "gl/MaterialCollection.h"
 #include "gl/MaterialManager.h"
+#include "gl/Resource.h"
+#include "gl/TestGl.h"
+#include "gl/TestUtils.h"
 #include "mdl/BrushFace.h" // IWYU pragma: keep
 #include "mdl/BrushNode.h"
 #include "mdl/CatchConfig.h"
@@ -449,7 +453,7 @@ TEST_CASE("Map_Assets")
     CHECK(map.materialManager().collections().front().materials().size() == 2);
   }
 
-  SECTION("reloadMaterialCollections picks up a palette added to disk")
+  SECTION("loads materials that don't require the palette if it is missing")
   {
     auto env = fs::TestEnvironment{};
     env.createDirectory("textures");
@@ -464,14 +468,46 @@ TEST_CASE("Map_Assets")
 
     auto& map = fixture.create(fixtureConfig);
 
-    // the materials cannot be loaded without the palette
-    REQUIRE(map.materialManager().collections().empty());
+    REQUIRE(map.materialManager().collections().size() == 1);
+    CHECK(map.materialManager().collections().front().materials().size() == 1);
+  }
+
+  SECTION("reloadMaterialCollections picks up a palette added to disk")
+  {
+    auto env = fs::TestEnvironment{};
+    std::filesystem::copy_file(
+      getFixtureRoot() / "test/mdl/Map/folder/cr8_a_excerpt.wad",
+      env.dir() / "cr8_a_excerpt.wad");
+
+    auto gameConfig = DefaultGameInfo.gameConfig;
+    gameConfig.materialConfig.palette = "palette.lmp";
+    gameConfig.materialConfig.property = "wad";
+
+    auto fixtureConfig = MapFixtureConfig{};
+    fixtureConfig.gameInfo = detail::makeGameInfoFixture(gameConfig, env.dir());
+
+    auto& map = fixture.create(fixtureConfig);
+    REQUIRE(setEntityProperty(map, EntityPropertyKeys::Wad, "cr8_a_excerpt.wad"));
+
+    auto gl = gl::TestGl{};
+    const auto processContext = gl::ProcessContext{gl, [](auto, auto) {}};
+    gl::processResourcesSync(map.resourceManager(), processContext);
+
+    // the materials are loaded, but their textures cannot be decoded without the palette
+    REQUIRE(map.materialManager().collections().size() == 1);
+    REQUIRE(std::ranges::all_of(
+      map.materialManager().collections().front().materials(),
+      [](const auto& material) { return material.texture() == nullptr; }));
 
     std::filesystem::copy_file(
       getFixtureRoot() / "test/mdl/Palette/palette.lmp", env.dir() / "palette.lmp");
     reloadMaterialCollections(map);
+    gl::processResourcesSync(map.resourceManager(), processContext);
 
-    CHECK(map.materialManager().collections().size() == 1);
+    REQUIRE(map.materialManager().collections().size() == 1);
+    CHECK(std::ranges::none_of(
+      map.materialManager().collections().front().materials(),
+      [](const auto& material) { return material.texture() == nullptr; }));
   }
 
   SECTION("reloadEntityDefinitions")
