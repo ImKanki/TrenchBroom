@@ -27,6 +27,7 @@
 #include <QJsonValue>
 #include <QLocale>
 #include <QProcessEnvironment>
+#include <QStringList>
 
 namespace tb::ui
 {
@@ -103,6 +104,15 @@ QString translationFileFor(const QString& language)
   return dir.filePath(language + ".json");
 }
 
+void debugLog(const QString& message)
+{
+  auto file = QFile{QCoreApplication::applicationDirPath() + "/translation-debug.log"};
+  if (file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+  {
+    file.write((message + "\n").toUtf8());
+  }
+}
+
 } // namespace
 
 QString translate(const std::string& sourceText)
@@ -136,21 +146,60 @@ QString selectLanguage(const QString& requested)
 bool installTranslation(QCoreApplication& app, const QString& language)
 {
   const auto code = selectLanguage(language);
+  debugLog(QString{"selectLanguage -> '%1' (requested: '%2')"}.arg(code, language));
   if (code.isEmpty() || code == "en")
   {
+    debugLog("no language selected, staying with English");
     return false;
   }
 
-  auto* translator = new JsonTranslator{};
-  if (!translator->load(translationFileFor(code)))
+  // Try the full locale first (zh_CN.json), then the bare language (zh.json), so both
+  // naming schemes work.
+  auto candidates = QStringList{};
+  const auto requestedLanguage = language.trimmed().replace('-', '_');
+  if (!requestedLanguage.isEmpty())
   {
-    delete translator;
-    return false;
+    candidates << requestedLanguage;
+  }
+  const auto localeName = QLocale::system().name();
+  if (!localeName.isEmpty() && !candidates.contains(localeName))
+  {
+    candidates << localeName;
+  }
+  if (!candidates.contains(code))
+  {
+    candidates << code;
   }
 
-  // The translator lives for the rest of the process and is intentionally leaked
-  // into the application; removing it would require tracking it explicitly.
-  return app.installTranslator(translator);
+  for (const auto& candidate : candidates)
+  {
+    const auto path = translationFileFor(candidate);
+    const auto exists = QFile::exists(path);
+    debugLog(QString{"trying '%1' exists=%2"}.arg(path).arg(exists ? "yes" : "no"));
+    if (!exists)
+    {
+      continue;
+    }
+
+    auto* translator = new JsonTranslator{};
+    if (!translator->load(path))
+    {
+      debugLog("load failed");
+      delete translator;
+      continue;
+    }
+    debugLog(QString{"loaded %1 entries"}.arg(static_cast<qulonglong>(translator->size())));
+    const auto installed = app.installTranslator(translator);
+    debugLog(QString{"installTranslator -> %1"}.arg(installed ? "true" : "false"));
+    if (installed)
+    {
+      return true;
+    }
+    delete translator;
+  }
+
+  debugLog("no usable dictionary found");
+  return false;
 }
 
 } // namespace tb::ui

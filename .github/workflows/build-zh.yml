@@ -56,8 +56,7 @@ jobs:
           Expand-Archive -Path $zip.FullName -DestinationPath $work -Force
           $dict = "translations\zh_CN.json"
           if (Test-Path $dict) {
-            $target = Get-ChildItem $work -Directory | Select-Object -First 1
-            $outDir = Join-Path $target.FullName "translations"
+            $outDir = Join-Path $work "translations"
             New-Item -ItemType Directory -Path $outDir -Force | Out-Null
             Copy-Item $dict (Join-Path $outDir "zh_CN.json") -Force
             Write-Output "dictionary copied to $outDir"
