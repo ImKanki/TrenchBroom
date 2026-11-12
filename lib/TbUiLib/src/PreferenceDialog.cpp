@@ -150,11 +150,11 @@ void PreferenceDialog::createGui()
   m_toolBar->setMovable(false);
   m_toolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
   m_toolBar->addAction(gamesImage, TB_TR("Games"), [&]() { switchToPane(PrefPane::Games); });
-  m_toolBar->addAction(viewImage, "View", [&]() { switchToPane(PrefPane::View); });
+  m_toolBar->addAction(viewImage, TB_TR("View"), [&]() { switchToPane(PrefPane::View); });
   m_toolBar->addAction(colorsImage, TB_TR("Colors"), [&]() { switchToPane(PrefPane::Colors); });
   m_toolBar->addAction(mouseImage, TB_TR("Mouse"), [&]() { switchToPane(PrefPane::Mouse); });
   m_toolBar->addAction(
-    keyboardImage, "Keyboard", [&]() { switchToPane(PrefPane::Keyboard); });
+    keyboardImage, TB_TR("Keyboard"), [&]() { switchToPane(PrefPane::Keyboard); });
   m_toolBar->addAction(updateImage, TB_TR("Update"), [&]() { switchToPane(PrefPane::Update); });
 
   // Don't display tooltips for pane switcher buttons...

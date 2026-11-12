@@ -516,5 +516,9 @@
   "X Offset": "X 偏移",
   "X Scale": "X 缩放",
   "Y Offset": "Y 偏移",
-  "Y Scale": "Y 缩放"
+  "Y Scale": "Y 缩放",
+  "Show %1": "显示 %1",
+  "clip": "切割面",
+  "origin": "原点",
+  "skip": "跳过面"
 }

@@ -18,6 +18,7 @@
  */
 
 #include "ui/ViewEditor.h"
+#include "ui/Translations.h"
 
 #include <QButtonGroup>
 #include <QCheckBox>
@@ -486,7 +487,7 @@ void ViewEditor::createTagFilter(QWidget* parent, const std::vector<mdl::SmartTa
   for (const auto& tag : tags)
   {
     const auto label =
-      QString::fromLatin1("Show %1").arg(QString::fromStdString(tag.name()).toLower());
+      TB_TR("Show %1").arg(TB_TR(QString::fromStdString(tag.name()).toLower()));
 
     auto* checkBox = new QCheckBox{label};
     const auto tagType = tag.type();
@@ -508,9 +509,9 @@ QWidget* ViewEditor::createRendererPanel(QWidget* parent)
   auto* inner = panel->getPanel();
 
   const auto FaceRenderModes = std::vector<std::tuple<QString, QString>>{
-    {"Show materials", QString::fromStdString(Preferences::FaceRenderModeTextured)},
-    {"Hide materials", QString::fromStdString(Preferences::FaceRenderModeFlat)},
-    {"Hide faces", QString::fromStdString(Preferences::FaceRenderModeSkip)},
+    {TB_TR("Show materials"), QString::fromStdString(Preferences::FaceRenderModeTextured)},
+    {TB_TR("Hide materials"), QString::fromStdString(Preferences::FaceRenderModeFlat)},
+    {TB_TR("Hide faces"), QString::fromStdString(Preferences::FaceRenderModeSkip)},
   };
 
   m_renderModeRadioGroup = new QButtonGroup{};
@@ -529,12 +530,12 @@ QWidget* ViewEditor::createRendererPanel(QWidget* parent)
 
 
   const auto EntityLinkModes = std::vector<std::tuple<QString, QString>>{
-    {"Show all entity links", QString::fromStdString(Preferences::EntityLinkModeAll)},
-    {"Show transitively selected entity links",
+    {TB_TR("Show all entity links"), QString::fromStdString(Preferences::EntityLinkModeAll)},
+    {TB_TR("Show transitively selected entity links"),
      QString::fromStdString(Preferences::EntityLinkModeTransitive)},
-    {"Show directly selected entity links",
+    {TB_TR("Show directly selected entity links"),
      QString::fromStdString(Preferences::EntityLinkModeDirect)},
-    {"Hide entity links", QString::fromStdString(Preferences::EntityLinkModeNone)},
+    {TB_TR("Hide entity links"), QString::fromStdString(Preferences::EntityLinkModeNone)},
   };
 
   m_entityLinkRadioGroup = new QButtonGroup{};

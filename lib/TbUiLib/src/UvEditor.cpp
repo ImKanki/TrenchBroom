@@ -18,6 +18,7 @@
  */
 
 #include "ui/UvEditor.h"
+#include "ui/Translations.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -91,7 +92,7 @@ void UvEditor::createGui(AppController& appController)
   connect(
     m_rotateUvCWButton, &QAbstractButton::clicked, this, &UvEditor::rotateUvCWClicked);
 
-  auto* gridLabel = new QLabel{"Grid "};
+  auto* gridLabel = new QLabel{TB_TR("Grid ")};
   setEmphasizedStyle(gridLabel);
   m_xSubDivisionEditor = new QSpinBox{};
   m_xSubDivisionEditor->setRange(1, 16);
