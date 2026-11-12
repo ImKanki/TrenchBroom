@@ -442,5 +442,12 @@
   "show": "显示",
   "to size": "到尺寸",
   "use builtin": "使用内置",
-  "You can't overwrite the current document.\nPlease choose a different file name ": "无法覆盖当前文档。\n请换一个文件名 "
+  "You can't overwrite the current document.\nPlease choose a different file name ": "无法覆盖当前文档。\n请换一个文件名 ",
+  "Map": "地图",
+  "Entity": "实体",
+  "Face": "面",
+  "object": "个对象",
+  "objects": "个对象",
+  "Size": "尺寸",
+  "n/a": "无"
 }

@@ -18,6 +18,7 @@
  */
 
 #include "ui/LayerListBox.h"
+#include "ui/Translations.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -129,7 +130,7 @@ void LayerListBoxWidget::updateLayerItem()
 
   const auto info = tr("%1 %2")
                       .arg(m_layer->childCount())
-                      .arg(m_layer->childCount() == 1 ? "object" : "objects");
+                      .arg(m_layer->childCount() == 1 ? TB_TR("object") : TB_TR("objects"));
   m_infoText->setText(info);
 
   // Update buttons

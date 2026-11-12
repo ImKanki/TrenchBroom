@@ -18,6 +18,7 @@
  */
 
 #include "ui/MaterialCollectionEditor.h"
+#include "ui/Translations.h"
 
 #include <QListWidget>
 #include <QToolButton>
@@ -125,7 +126,7 @@ bool MaterialCollectionEditor::canReloadMaterialCollections() const
  */
 void MaterialCollectionEditor::createGui()
 {
-  auto* availableCollectionsContainer = new TitledPanel{"Available", false, true};
+  auto* availableCollectionsContainer = new TitledPanel{TB_TR("Available"), false, true};
   availableCollectionsContainer->setBackgroundRole(QPalette::Base);
   availableCollectionsContainer->setAutoFillBackground(true);
 
@@ -139,7 +140,7 @@ void MaterialCollectionEditor::createGui()
   availableCollectionsContainer->getPanel()->setLayout(
     availableCollectionsContainerLayout);
 
-  auto* enabledCollectionsContainer = new TitledPanel{"Enabled", false, true};
+  auto* enabledCollectionsContainer = new TitledPanel{TB_TR("Enabled"), false, true};
   enabledCollectionsContainer->setBackgroundRole(QPalette::Base);
   enabledCollectionsContainer->setAutoFillBackground(true);
 

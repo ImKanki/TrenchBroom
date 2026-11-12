@@ -18,6 +18,7 @@
  */
 
 #include "ui/FaceAttribsEditor.h"
+#include "ui/Translations.h"
 
 #include <QApplication>
 #include <QLabel>
@@ -471,45 +472,45 @@ Hold %2 to keep trim sheet subdivisions.)")
 
 QWidget* FaceAttribsEditor::createAttribsWidget()
 {
-  auto* materialNameLabel = new QLabel{"Material"};
+  auto* materialNameLabel = new QLabel{TB_TR("Material")};
   setEmphasizedStyle(materialNameLabel);
   m_materialName = new QLabel{"none"};
   m_materialName->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
-  auto* textureSizeLabel = new QLabel{"Size"};
+  auto* textureSizeLabel = new QLabel{TB_TR("Size")};
   setEmphasizedStyle(textureSizeLabel);
   m_textureSize = new QLabel{""};
 
   const auto max = std::numeric_limits<double>::max();
   const auto min = -max;
 
-  auto* xOffsetLabel = new QLabel{"X Offset"};
+  auto* xOffsetLabel = new QLabel{TB_TR("X Offset")};
   setEmphasizedStyle(xOffsetLabel);
   m_xOffsetEditor = new SpinControl{};
   m_xOffsetEditor->setRange(min, max);
   m_xOffsetEditor->setDigits(0, 6);
 
-  auto* yOffsetLabel = new QLabel{"Y Offset"};
+  auto* yOffsetLabel = new QLabel{TB_TR("Y Offset")};
   setEmphasizedStyle(yOffsetLabel);
   m_yOffsetEditor = new SpinControl{};
   m_yOffsetEditor->setRange(min, max);
   m_yOffsetEditor->setDigits(0, 6);
 
-  auto* xScaleLabel = new QLabel{"X Scale"};
+  auto* xScaleLabel = new QLabel{TB_TR("X Scale")};
   setEmphasizedStyle(xScaleLabel);
   m_xScaleEditor = new SpinControl{};
   m_xScaleEditor->setRange(min, max);
   m_xScaleEditor->setIncrements(0.1, 0.25, 0.01);
   m_xScaleEditor->setDigits(0, 6);
 
-  auto* yScaleLabel = new QLabel{"Y Scale"};
+  auto* yScaleLabel = new QLabel{TB_TR("Y Scale")};
   setEmphasizedStyle(yScaleLabel);
   m_yScaleEditor = new SpinControl{};
   m_yScaleEditor->setRange(min, max);
   m_yScaleEditor->setIncrements(0.1, 0.25, 0.01);
   m_yScaleEditor->setDigits(0, 6);
 
-  auto* rotationLabel = new QLabel{"Angle"};
+  auto* rotationLabel = new QLabel{TB_TR("Angle")};
   setEmphasizedStyle(rotationLabel);
   m_rotationEditor = new SpinControl{};
   m_rotationEditor->setRange(min, max);
@@ -935,12 +936,12 @@ void FaceAttribsEditor::updateControls()
     m_fitVButton->setEnabled(false);
     m_autoFitButton->setEnabled(false);
 
-    disableAndSetPlaceholder(m_xOffsetEditor, "n/a");
-    disableAndSetPlaceholder(m_yOffsetEditor, "n/a");
-    disableAndSetPlaceholder(m_xScaleEditor, "n/a");
-    disableAndSetPlaceholder(m_yScaleEditor, "n/a");
-    disableAndSetPlaceholder(m_rotationEditor, "n/a");
-    disableAndSetPlaceholder(m_surfaceValueEditor, "n/a");
+    disableAndSetPlaceholder(m_xOffsetEditor, TB_TR("n/a"));
+    disableAndSetPlaceholder(m_yOffsetEditor, TB_TR("n/a"));
+    disableAndSetPlaceholder(m_xScaleEditor, TB_TR("n/a"));
+    disableAndSetPlaceholder(m_yScaleEditor, TB_TR("n/a"));
+    disableAndSetPlaceholder(m_rotationEditor, TB_TR("n/a"));
+    disableAndSetPlaceholder(m_surfaceValueEditor, TB_TR("n/a"));
 
     m_surfaceFlagsEditor->setEnabled(false);
     m_contentFlagsEditor->setEnabled(false);

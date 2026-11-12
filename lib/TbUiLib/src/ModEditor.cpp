@@ -18,6 +18,7 @@
  */
 
 #include "ui/ModEditor.h"
+#include "ui/Translations.h"
 
 #include <QLineEdit>
 #include <QListWidget>
@@ -96,7 +97,7 @@ ModEditor::ModEditor(MapDocument& document, QWidget* parent)
 
 void ModEditor::createGui()
 {
-  auto* availableModContainer = new TitledPanel{"Available", false, true};
+  auto* availableModContainer = new TitledPanel{TB_TR("Available"), false, true};
   availableModContainer->setBackgroundRole(QPalette::Base);
   availableModContainer->setAutoFillBackground(true);
 
@@ -117,7 +118,7 @@ void ModEditor::createGui()
   filterBoxSizer->setSpacing(0);
   filterBoxSizer->addWidget(m_filterBox, 1);
 
-  auto* enabledModContainer = new TitledPanel{"Enabled", false, true};
+  auto* enabledModContainer = new TitledPanel{TB_TR("Enabled"), false, true};
   enabledModContainer->setBackgroundRole(QPalette::Base);
   enabledModContainer->setAutoFillBackground(true);
 

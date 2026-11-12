@@ -18,6 +18,7 @@
  */
 
 #include "ui/Inspector.h"
+#include "ui/Translations.h"
 
 #include <QByteArray>
 #include <QDataStream>
@@ -45,9 +46,9 @@ Inspector::Inspector(AppController& appController, MapDocument& document, QWidge
   m_entityInspector = new EntityInspector{appController, document};
   m_faceInspector = new FaceInspector{appController, document};
 
-  m_tabBook->addPage(m_mapInspector, "Map");
-  m_tabBook->addPage(m_entityInspector, "Entity");
-  m_tabBook->addPage(m_faceInspector, "Face");
+  m_tabBook->addPage(m_mapInspector, TB_TR("Map"));
+  m_tabBook->addPage(m_entityInspector, TB_TR("Entity"));
+  m_tabBook->addPage(m_faceInspector, TB_TR("Face"));
 
   auto* layout = new QVBoxLayout{};
   layout->setContentsMargins(0, 0, 0, 0);
