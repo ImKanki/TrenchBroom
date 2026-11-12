@@ -120,6 +120,11 @@ QString translate(const std::string& sourceText)
   return QCoreApplication::translate("TrenchBroom", sourceText.c_str());
 }
 
+QString translate(const char* sourceText)
+{
+  return QCoreApplication::translate("TrenchBroom", sourceText);
+}
+
 QString selectLanguage(const QString& requested)
 {
   if (!requested.isEmpty())

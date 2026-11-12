@@ -86,10 +86,15 @@ bool installTranslation(QCoreApplication& app, const QString& language = {});
 QString translate(const std::string& sourceText);
 
 /**
- * Convenience macro used at call sites that display user visible text. The fixed
- * context keeps the generated dictionary flat.
+ * Overload for string literals at UI call sites. See the macro below.
  */
-#define TB_TR(sourceText) \
-  QCoreApplication::translate("TrenchBroom", sourceText)
+QString translate(const char* sourceText);
+
+/**
+ * Convenience macro used at call sites that display user visible text. It resolves
+ * to the overload above, so it works in any translation unit that includes this
+ * header without pulling in QCoreApplication.
+ */
+#define TB_TR(sourceText) ::tb::ui::translate(sourceText)
 
 } // namespace tb::ui
