@@ -487,7 +487,7 @@ void ViewEditor::createTagFilter(QWidget* parent, const std::vector<mdl::SmartTa
   for (const auto& tag : tags)
   {
     const auto label =
-      TB_TR("Show %1").arg(TB_TR(QString::fromStdString(tag.name()).toLower()));
+      TB_TR("Show %1").arg(TB_TR(tag.name().c_str()));
 
     auto* checkBox = new QCheckBox{label};
     const auto tagType = tag.type();
