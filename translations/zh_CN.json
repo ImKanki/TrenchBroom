@@ -508,5 +508,13 @@
   "Move...": "移动...",
   "Show hidden issues": "显示隐藏的问题",
   "Filter": "筛选",
-  "Updates disabled": "更新已禁用"
+  "Updates disabled": "更新已禁用",
+  "Angle": "角度",
+  "Available": "可用",
+  "Enabled": "已启用",
+  "Material": "材质",
+  "X Offset": "X 偏移",
+  "X Scale": "X 缩放",
+  "Y Offset": "Y 偏移",
+  "Y Scale": "Y 缩放"
 }
