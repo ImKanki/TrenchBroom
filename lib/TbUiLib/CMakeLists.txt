@@ -162,6 +162,7 @@ target_sources(TbUiLib
     ${CMAKE_CURRENT_SOURCE_DIR}/src/SwitchableTitledPanel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/SyncHeightEventFilter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/SystemPaths.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Translations.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TabBar.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TabBook.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/TextOutputAdapter.cpp
@@ -350,6 +351,7 @@ target_sources(TbUiLib
     ${CMAKE_CURRENT_SOURCE_DIR}/include/ui/SwitchableTitledPanel.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/ui/SyncHeightEventFilter.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/ui/SystemPaths.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/ui/Translations.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/ui/TabBar.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/ui/TabBook.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/ui/TextOutputAdapter.h

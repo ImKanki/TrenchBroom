@@ -1,0 +1,76 @@
+name: Build Chinese Windows
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-2022
+    env:
+      TB_BUILD_TYPE: release
+      TB_ARCH: x64
+      TB_ENABLE_LTO: '0'
+      TB_ENABLE_STDLIB_HARDENING: '0'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup common prerequisites
+        uses: ./.github/actions/setup-common
+
+      - name: Setup shared CI environment
+        uses: ./.github/actions/setup-shared-env
+
+      - name: Install build helpers
+        shell: pwsh
+        run: |
+          choco install ccache pandoc --yes --no-progress
+          if (-not $env:ChocolateyInstall) { throw "ChocolateyInstall is not set" }
+          "$env:ChocolateyInstall\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          Get-Command ccache -ErrorAction Stop | Out-Null
+          Get-Command pandoc -ErrorAction Stop | Out-Null
+
+      - name: Configure and build
+        shell: cmd
+        run: |
+          if exist cmakebuild rmdir /s /q cmakebuild
+          mkdir cmakebuild
+          cd cmakebuild
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+          cmake .. -GNinja -DCMAKE_PREFIX_PATH="%QT_ROOT_DIR%" -DCMAKE_BUILD_TYPE=Release -DTB_ENABLE_PCH=0 -DTB_ENABLE_CCACHE=1 -DTB_ENABLE_LTO=0 -DTB_ENABLE_STDLIB_HARDENING=0
+          if %ERRORLEVEL% NEQ 0 exit /b 1
+          cmake --build . --config Release --parallel
+          if %ERRORLEVEL% NEQ 0 exit /b 1
+          "C:\Program Files\CMake\bin\cpack.exe"
+          if %ERRORLEVEL% NEQ 0 exit /b 1
+
+      - name: Add translation dictionary to the package
+        shell: pwsh
+        run: |
+          $zip = Get-ChildItem cmakebuild\*.zip | Select-Object -First 1
+          if (-not $zip) { throw "no package produced" }
+          $work = Join-Path $env:RUNNER_TEMP "pkg"
+          Expand-Archive -Path $zip.FullName -DestinationPath $work -Force
+          $dict = "translations\zh_CN.json"
+          if (Test-Path $dict) {
+            $target = Get-ChildItem $work -Directory | Select-Object -First 1
+            $outDir = Join-Path $target.FullName "translations"
+            New-Item -ItemType Directory -Path $outDir -Force | Out-Null
+            Copy-Item $dict (Join-Path $outDir "zh_CN.json") -Force
+            Write-Output "dictionary copied to $outDir"
+          } else {
+            Write-Output "no dictionary found, shipping English UI"
+          }
+          Remove-Item $zip.FullName -Force
+          Compress-Archive -Path (Join-Path $work "*") -DestinationPath $zip.FullName -CompressionLevel Optimal
+          Get-Item $zip.FullName | Select-Object Name, Length
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: TrenchBroom-zh-win64
+          path: cmakebuild/*.zip
+          retention-days: 30

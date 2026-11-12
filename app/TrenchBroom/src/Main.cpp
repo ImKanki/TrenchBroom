@@ -47,6 +47,7 @@
 #include "ui/QPreferenceStore.h"
 #include "ui/RecentDocuments.h"
 #include "ui/SystemPaths.h"
+#include "ui/Translations.h"
 
 using namespace tb;
 using namespace tb::ui;
@@ -382,6 +383,9 @@ int main(int argc, char* argv[])
   // QApplication must be created before QPreferenceStore because QPreferenceStore uses
   // QFileSystemWatcher, which requires a QApplication instance
   auto app = QApplication{argc, argv};
+
+  // Install the UI translation dictionary when one exists for the selected language.
+  installTranslation(app);
 
   // PreferenceManager is destroyed by TrenchBroomApp::~TrenchBroomApp()
   PreferenceManager::createInstance(
