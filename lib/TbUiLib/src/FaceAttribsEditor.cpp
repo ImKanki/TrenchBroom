@@ -479,7 +479,7 @@ QWidget* FaceAttribsEditor::createAttribsWidget()
 
   auto* textureSizeLabel = new QLabel{TB_TR("Size")};
   setEmphasizedStyle(textureSizeLabel);
-  m_textureSize = new QLabel{""};
+  m_textureSize = new QLabel{TB_TR("")};
 
   const auto max = std::numeric_limits<double>::max();
   const auto min = -max;
@@ -872,7 +872,7 @@ void FaceAttribsEditor::updateControls()
       {
         m_materialName->setText("none");
         m_materialName->setEnabled(false);
-        m_textureSize->setText("");
+        m_textureSize->setText(TB_TR(""));
         m_textureSize->setEnabled(false);
       }
       else
@@ -904,18 +904,18 @@ void FaceAttribsEditor::updateControls()
       if (colorValueMulti)
       {
         m_colorEditor->setPlaceholderText("multi");
-        m_colorEditor->setText("");
+        m_colorEditor->setText(TB_TR(""));
       }
       else
       {
-        m_colorEditor->setPlaceholderText("");
+        m_colorEditor->setPlaceholderText(TB_TR(""));
         m_colorEditor->setText(QString::fromStdString(colorValue->to<RgbB>().toString()));
       }
     }
     else
     {
-      m_colorEditor->setPlaceholderText("");
-      m_colorEditor->setText("");
+      m_colorEditor->setPlaceholderText(TB_TR(""));
+      m_colorEditor->setText(TB_TR(""));
     }
     m_surfaceFlagsEditor->setFlagValue(setSurfaceFlags, mixedSurfaceFlags);
     m_contentFlagsEditor->setFlagValue(setSurfaceContents, mixedSurfaceContents);
@@ -945,7 +945,7 @@ void FaceAttribsEditor::updateControls()
 
     m_surfaceFlagsEditor->setEnabled(false);
     m_contentFlagsEditor->setEnabled(false);
-    m_colorEditor->setText("");
+    m_colorEditor->setText(TB_TR(""));
     m_colorEditor->setPlaceholderText("n/a");
     m_colorEditor->setEnabled(false);
 

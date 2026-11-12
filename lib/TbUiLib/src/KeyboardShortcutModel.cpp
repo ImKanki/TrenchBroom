@@ -18,6 +18,7 @@
  */
 
 #include "ui/KeyboardShortcutModel.h"
+#include "ui/Translations.h"
 
 #include <QBrush>
 #include <QKeySequence>
@@ -83,13 +84,13 @@ QVariant KeyboardShortcutModel::headerData(
     switch (section)
     {
     case 0:
-      return QString{"Description"};
+      return QString{TB_TR("Description")};
     case 1:
-      return QString{"Context"};
+      return QString{TB_TR("Context")};
     case 2:
-      return QString{"Shortcut"};
+      return QString{TB_TR("Shortcut")};
     case 3:
-      return QString{"Alternative"};
+      return QString{TB_TR("Alternative")};
     }
   }
   return QVariant{};

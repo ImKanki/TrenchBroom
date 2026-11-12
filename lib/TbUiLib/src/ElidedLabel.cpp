@@ -18,6 +18,7 @@
  */
 
 #include "ui/ElidedLabel.h"
+#include "ui/Translations.h"
 
 #include <QBoxLayout>
 #include <QLabel>
@@ -63,7 +64,7 @@ void ElidedLabel::updateElidedText(const int width)
   }
   else
   {
-    m_label->setToolTip("");
+    m_label->setToolTip(TB_TR(""));
   }
 }
 

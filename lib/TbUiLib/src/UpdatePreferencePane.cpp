@@ -18,6 +18,7 @@
  */
 
 #include "ui/UpdatePreferencePane.h"
+#include "ui/Translations.h"
 
 #include <QBoxLayout>
 #include <QCheckBox>
@@ -104,12 +105,12 @@ They may contain new features or bug fixes that are not yet part of a stable rel
     LayoutConstants::DialogOuterMargin);
   m_layout->setVerticalSpacing(LayoutConstants::WideVMargin);
 
-  m_layout->addSection("Automatic Updates");
+  m_layout->addSection(TB_TR("Automatic Updates"));
   m_layout->addRow(updateInfo);
   m_layout->addRow(updateIndicator);
-  m_layout->addSection("Update Preferences");
-  m_layout->addRow("Check for updates on startup", m_autoCheckForUpdates);
-  m_layout->addRow("Include pre-releases", m_includePreReleaseUpdates);
+  m_layout->addSection(TB_TR("Update Preferences"));
+  m_layout->addRow(TB_TR("Check for updates on startup"), m_autoCheckForUpdates);
+  m_layout->addRow(TB_TR("Include pre-releases"), m_includePreReleaseUpdates);
 
   m_includeDraftReleaseUpdatesRow = m_layout->rowCount();
   m_layout->addRow("Include draft releases", m_includeDraftReleaseUpdates);

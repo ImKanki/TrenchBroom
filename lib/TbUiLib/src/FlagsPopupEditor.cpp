@@ -18,6 +18,7 @@
  */
 
 #include "ui/FlagsPopupEditor.h"
+#include "ui/Translations.h"
 
 #include <QDebug>
 #include <QHBoxLayout>
@@ -117,7 +118,7 @@ void FlagsPopupEditor::updateFlagsText()
     {
       m_flagsTxt->setDisabled(true);
       m_flagsTxt->setText("n/a");
-      m_flagsTxt->setToolTip("");
+      m_flagsTxt->setToolTip(TB_TR(""));
       return;
     }
 
@@ -149,7 +150,7 @@ void FlagsPopupEditor::updateFlagsText()
     }
     else
     {
-      m_flagsTxt->setToolTip("");
+      m_flagsTxt->setToolTip(TB_TR(""));
     }
 
     m_flagsTxt->setDisabled(mixed);

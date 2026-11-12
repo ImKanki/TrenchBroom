@@ -18,6 +18,7 @@
  */
 
 #include "ui/PreferenceDialog.h"
+#include "ui/Translations.h"
 
 #include <QBoxLayout>
 #include <QCloseEvent>
@@ -77,7 +78,7 @@ PreferenceDialog::PreferenceDialog(
   , m_appController{appController}
   , m_document{document}
 {
-  setWindowTitle("Preferences");
+  setWindowTitle(TB_TR("Preferences"));
   setWindowIconTB(this);
   createGui();
   setMinimumSize(PreferenceDialogMinWidth, PreferenceDialogMinHeight);
@@ -148,13 +149,13 @@ void PreferenceDialog::createGui()
   m_toolBar->setFloatable(false);
   m_toolBar->setMovable(false);
   m_toolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-  m_toolBar->addAction(gamesImage, "Games", [&]() { switchToPane(PrefPane::Games); });
+  m_toolBar->addAction(gamesImage, TB_TR("Games"), [&]() { switchToPane(PrefPane::Games); });
   m_toolBar->addAction(viewImage, "View", [&]() { switchToPane(PrefPane::View); });
-  m_toolBar->addAction(colorsImage, "Colors", [&]() { switchToPane(PrefPane::Colors); });
-  m_toolBar->addAction(mouseImage, "Mouse", [&]() { switchToPane(PrefPane::Mouse); });
+  m_toolBar->addAction(colorsImage, TB_TR("Colors"), [&]() { switchToPane(PrefPane::Colors); });
+  m_toolBar->addAction(mouseImage, TB_TR("Mouse"), [&]() { switchToPane(PrefPane::Mouse); });
   m_toolBar->addAction(
     keyboardImage, "Keyboard", [&]() { switchToPane(PrefPane::Keyboard); });
-  m_toolBar->addAction(updateImage, "Update", [&]() { switchToPane(PrefPane::Update); });
+  m_toolBar->addAction(updateImage, TB_TR("Update"), [&]() { switchToPane(PrefPane::Update); });
 
   // Don't display tooltips for pane switcher buttons...
   for (auto* button : m_toolBar->findChildren<QToolButton*>())

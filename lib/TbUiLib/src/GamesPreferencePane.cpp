@@ -18,6 +18,7 @@
  */
 
 #include "ui/GamesPreferencePane.h"
+#include "ui/Translations.h"
 
 #include <QAction>
 #include <QBoxLayout>
@@ -210,7 +211,7 @@ void GamePreferencePane::createGui()
     [validDirectoryIcon](const QString& text) {
       if (text.isEmpty() || QDir{text}.exists())
       {
-        validDirectoryIcon->setToolTip("");
+        validDirectoryIcon->setToolTip(TB_TR(""));
         validDirectoryIcon->setIcon(QIcon{});
       }
       else
@@ -247,7 +248,7 @@ void GamePreferencePane::createGui()
 
   layout->addSection(QString::fromStdString(m_gameInfo.gameConfig.name));
   layout->addRow(tr("Game Path"), gamePathLayout);
-  layout->addRow("", configureEnginesButton);
+  layout->addRow(TB_TR(""), configureEnginesButton);
 
   layout->addSection(tr("Compilation Tools"));
 

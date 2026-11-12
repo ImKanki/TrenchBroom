@@ -18,6 +18,7 @@
  */
 
 #include "ui/ViewPreferencePane.h"
+#include "ui/Translations.h"
 
 #include <QBoxLayout>
 #include <QCheckBox>
@@ -108,7 +109,7 @@ QWidget* ViewPreferencePane::createViewPreferences()
 {
   auto* viewBox = new QWidget{this};
 
-  auto* viewPrefsHeader = new QLabel{"Map Views"};
+  auto* viewPrefsHeader = new QLabel{TB_TR("Map Views")};
   setEmphasizedStyle(viewPrefsHeader);
 
   m_themeCombo = new QComboBox{};
@@ -165,7 +166,7 @@ QWidget* ViewPreferencePane::createViewPreferences()
   }
 
   m_enableMsaa = new QCheckBox{};
-  m_enableMsaa->setToolTip("Enable multisampling");
+  m_enableMsaa->setToolTip(TB_TR("Enable multisampling"));
 
   m_materialBrowserIconSizeCombo = new QComboBox{};
   m_materialBrowserIconSizeCombo->addItem("25%");
@@ -197,23 +198,23 @@ QWidget* ViewPreferencePane::createViewPreferences()
   // override the default to make the sliders take up maximum width
   layout->setFieldGrowthPolicy(QFormLayout::ExpandingFieldsGrow);
 
-  layout->addSection("User Interface");
-  layout->addRow("Theme", themeLayout);
+  layout->addSection(TB_TR("User Interface"));
+  layout->addRow(TB_TR("Theme"), themeLayout);
 
-  layout->addSection("Map Views");
-  layout->addRow("Layout", viewLayoutLayout);
-  layout->addRow("Brightness", m_brightnessSlider);
+  layout->addSection(TB_TR("Map Views"));
+  layout->addRow(TB_TR("Layout"), viewLayoutLayout);
+  layout->addRow(TB_TR("Brightness"), m_brightnessSlider);
   layout->addRow("Grid", m_gridAlphaSlider);
-  layout->addRow("FOV", m_fovSlider);
-  layout->addRow("Show axes", m_showAxes);
-  layout->addRow("Filter mode", m_filterModeCombo);
-  layout->addRow("Enable multisampling", m_enableMsaa);
+  layout->addRow(TB_TR("FOV"), m_fovSlider);
+  layout->addRow(TB_TR("Show axes"), m_showAxes);
+  layout->addRow(TB_TR("Filter mode"), m_filterModeCombo);
+  layout->addRow(TB_TR("Enable multisampling"), m_enableMsaa);
 
   layout->addSection("Material Browser");
-  layout->addRow("Icon size", m_materialBrowserIconSizeCombo);
+  layout->addRow(TB_TR("Icon size"), m_materialBrowserIconSizeCombo);
 
-  layout->addSection("Fonts");
-  layout->addRow("Renderer Font Size", m_rendererFontSizeCombo);
+  layout->addSection(TB_TR("Fonts"));
+  layout->addRow(TB_TR("Renderer Font Size"), m_rendererFontSizeCombo);
 
   viewBox->setLayout(layout);
 

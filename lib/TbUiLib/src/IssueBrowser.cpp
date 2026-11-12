@@ -18,6 +18,7 @@
  */
 
 #include "ui/IssueBrowser.h"
+#include "ui/Translations.h"
 
 #include <QCheckBox>
 #include <QList>
@@ -50,7 +51,7 @@ IssueBrowser::IssueBrowser(MapDocument& document, QWidget* parent)
 QWidget* IssueBrowser::createTabBarPage(QWidget* parent)
 {
   auto* barPage = new QWidget{parent};
-  m_showHiddenIssuesCheckBox = new QCheckBox{"Show hidden issues"};
+  m_showHiddenIssuesCheckBox = new QCheckBox{TB_TR("Show hidden issues")};
   connect(
     m_showHiddenIssuesCheckBox,
     &QCheckBox::checkStateChanged,

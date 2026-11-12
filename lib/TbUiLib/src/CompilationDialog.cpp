@@ -18,6 +18,7 @@
  */
 
 #include "ui/CompilationDialog.h"
+#include "ui/Translations.h"
 
 #include <QApplication>
 #include <QBoxLayout>
@@ -125,7 +126,7 @@ void CompilationDialog::createGui()
   m_compileButton = buttonBox->addButton(tr("Compile"), QDialogButtonBox::NoRole);
   m_closeButton = buttonBox->addButton(tr("Close"), QDialogButtonBox::RejectRole);
 
-  m_currentRunLabel = new QLabel{""};
+  m_currentRunLabel = new QLabel{TB_TR("")};
   m_currentRunLabel->setAlignment(Qt::AlignRight);
 
   auto* buttonLayout = new QHBoxLayout{};
@@ -269,14 +270,14 @@ void CompilationDialog::compilationStarted()
   emit compilationProfileStarted(profile->name);
 
   m_currentRunLabel->setText(QString::fromStdString("Running " + profile->name));
-  m_output->setText("");
+  m_output->setText(TB_TR(""));
 
   updateCompileButtons();
 }
 
 void CompilationDialog::compilationEnded()
 {
-  m_currentRunLabel->setText("");
+  m_currentRunLabel->setText(TB_TR(""));
 
   updateCompileButtons();
 }

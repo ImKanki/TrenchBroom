@@ -18,6 +18,7 @@
  */
 
 #include "ui/CompilationTaskListBox.h"
+#include "ui/Translations.h"
 
 #include <QBoxLayout>
 #include <QCheckBox>
@@ -172,7 +173,7 @@ Variables are allowed.)");
   m_stripTbProperties->setToolTip(
     tr("Set this checkbox to strip any entity properties starting with _tb_ from the "
        "exported map file. Some compilers cannot handle these properties."));
-  formLayout->addRow("", m_stripTbProperties);
+  formLayout->addRow(TB_TR(""), m_stripTbProperties);
 
   connect(
     m_targetEditor,
@@ -551,7 +552,7 @@ Variables are allowed.)");
   m_treatNonZeroResultCodeAsError = new QCheckBox{"Stop on nonzero error code"};
   m_treatNonZeroResultCodeAsError->setToolTip(
     tr("Stop compilation if the tool returns a nonzero error code"));
-  formLayout->addRow("", m_treatNonZeroResultCodeAsError);
+  formLayout->addRow(TB_TR(""), m_treatNonZeroResultCodeAsError);
 
   connect(
     m_toolEditor,
@@ -665,7 +666,7 @@ CompilationLaunchEngineTaskEditor::CompilationLaunchEngineTaskEditor(
   m_treatLaunchFailureAsError = new QCheckBox{"Stop on launch failure"};
   m_treatLaunchFailureAsError->setToolTip(
     tr("Stop compilation if the engine cannot be launched"));
-  formLayout->addRow("", m_treatLaunchFailureAsError);
+  formLayout->addRow(TB_TR(""), m_treatLaunchFailureAsError);
 
   connect(
     m_engineProfileEditor,

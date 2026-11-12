@@ -18,6 +18,7 @@
  */
 
 #include "ui/MousePreferencePane.h"
+#include "ui/Translations.h"
 
 #include <QCheckBox>
 #include <QLabel>
@@ -44,20 +45,20 @@ void MousePreferencePane::createGui()
 {
   m_lookSpeedSlider = new SliderWithLabel{1, 100};
   m_lookSpeedSlider->setMaximumWidth(400);
-  m_invertLookHAxisCheckBox = new QCheckBox{"Invert X axis"};
-  m_invertLookVAxisCheckBox = new QCheckBox{"Invert Y axis"};
+  m_invertLookHAxisCheckBox = new QCheckBox{TB_TR("Invert X axis")};
+  m_invertLookVAxisCheckBox = new QCheckBox{TB_TR("Invert Y axis")};
 
   m_panSpeedSlider = new SliderWithLabel{1, 100};
   m_panSpeedSlider->setMaximumWidth(400);
-  m_invertPanHAxisCheckBox = new QCheckBox{"Invert X axis"};
-  m_invertPanVAxisCheckBox = new QCheckBox{"Invert Y axis"};
+  m_invertPanHAxisCheckBox = new QCheckBox{TB_TR("Invert X axis")};
+  m_invertPanVAxisCheckBox = new QCheckBox{TB_TR("Invert Y axis")};
 
   m_moveSpeedSlider = new SliderWithLabel{1, 100};
   m_moveSpeedSlider->setMaximumWidth(400);
-  m_invertMouseWheelCheckBox = new QCheckBox{"Invert mouse wheel"};
-  m_enableAltMoveCheckBox = new QCheckBox{"Alt + middle mouse drag to move camera"};
-  m_invertAltMoveAxisCheckBox = new QCheckBox{"Invert Z axis in Alt + middle mouse drag"};
-  m_moveInCursorDirCheckBox = new QCheckBox{"Move camera towards cursor"};
+  m_invertMouseWheelCheckBox = new QCheckBox{TB_TR("Invert mouse wheel")};
+  m_enableAltMoveCheckBox = new QCheckBox{TB_TR("Alt + middle mouse drag to move camera")};
+  m_invertAltMoveAxisCheckBox = new QCheckBox{TB_TR("Invert Z axis in Alt + middle mouse drag")};
+  m_moveInCursorDirCheckBox = new QCheckBox{TB_TR("Move camera towards cursor")};
 
   m_flyMoveSpeedSlider = new SliderWithLabel{0, 100};
   m_flyMoveSpeedSlider->setMaximumWidth(400);
@@ -72,24 +73,24 @@ void MousePreferencePane::createGui()
   // override the default to make the sliders take up maximum width
   layout->setFieldGrowthPolicy(QFormLayout::ExpandingFieldsGrow);
 
-  layout->addSection("Mouse Look");
-  layout->addRow("Sensitivity", m_lookSpeedSlider);
-  layout->addRow("", m_invertLookHAxisCheckBox);
-  layout->addRow("", m_invertLookVAxisCheckBox);
+  layout->addSection(TB_TR("Mouse Look"));
+  layout->addRow(TB_TR("Sensitivity"), m_lookSpeedSlider);
+  layout->addRow(TB_TR(""), m_invertLookHAxisCheckBox);
+  layout->addRow(TB_TR(""), m_invertLookVAxisCheckBox);
 
-  layout->addSection("Mouse Pan");
-  layout->addRow("Sensitivity", m_panSpeedSlider);
-  layout->addRow("", m_invertPanHAxisCheckBox);
-  layout->addRow("", m_invertPanVAxisCheckBox);
+  layout->addSection(TB_TR("Mouse Pan"));
+  layout->addRow(TB_TR("Sensitivity"), m_panSpeedSlider);
+  layout->addRow(TB_TR(""), m_invertPanHAxisCheckBox);
+  layout->addRow(TB_TR(""), m_invertPanVAxisCheckBox);
 
-  layout->addSection("Mouse Move");
-  layout->addRow("Sensitivity", m_moveSpeedSlider);
-  layout->addRow("", m_invertMouseWheelCheckBox);
-  layout->addRow("", m_enableAltMoveCheckBox);
-  layout->addRow("", m_invertAltMoveAxisCheckBox);
-  layout->addRow("", m_moveInCursorDirCheckBox);
+  layout->addSection(TB_TR("Mouse Move"));
+  layout->addRow(TB_TR("Sensitivity"), m_moveSpeedSlider);
+  layout->addRow(TB_TR(""), m_invertMouseWheelCheckBox);
+  layout->addRow(TB_TR(""), m_enableAltMoveCheckBox);
+  layout->addRow(TB_TR(""), m_invertAltMoveAxisCheckBox);
+  layout->addRow(TB_TR(""), m_moveInCursorDirCheckBox);
 
-  layout->addSection("Fly Mode");
+  layout->addSection(TB_TR("Fly Mode"));
   layout->addRow(
     "",
     setInfoStyle(new QLabel{
